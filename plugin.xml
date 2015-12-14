@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e107Plugin name="Node.js Forum" lan="LAN_PLUGIN_NODEJS_FORUM_NAME" version="1.0" date="2015-12-14" compatibility="2.0" installRequired="true">
+    <author name="lonalore" url="http://lonalore.hu"/>
+    <summary lan="LAN_PLUGIN_NODEJS_FORUM_SUMM">Node.js Forum</summary>
+    <description lan="LAN_PLUGIN_NODEJS_FORUM_DESC">Add realtime capabilities (notifications) to forum plugin.</description>
+    <keywords>
+        <word>nodejs</word>
+        <word>notify</word>
+        <word>forum</word>
+    </keywords>
+    <category>tools</category>
+    <copyright></copyright>
+    <adminLinks>
+        <link url="admin_config.php" description="" icon="images/icon_32.png" iconSmall="images/icon_16.png" primary="true">LAN_CONFIGURE</link>
+    </adminLinks>
+    <pluginPrefs>
+        <pref name='disable_alerts'>0</pref>
+        <pref name='disable_sounds'>0</pref>
+    </pluginPrefs>
+    <dependencies>
+        <plugin name='nodejs' min_version='1.2' />
+        <plugin name='nodejs_notify' min_version='1.1' />
+        <plugin name='forum' min_version='2.0' />
+    </dependencies>
+    <extendedFields>
+        <field name="alert_new_post_any" type='EUF_INTEGER' default='1' active="true" />
+        <field name="sound_new_post_any" type='EUF_INTEGER' default='1' active="true" />
+        <field name="alert_new_post_own" type='EUF_INTEGER' default='1' active="true" />
+        <field name="sound_new_post_own" type='EUF_INTEGER' default='1' active="true" />
+    </extendedFields>
+</e107Plugin>
