@@ -44,3 +44,27 @@ $NODEJS_FORUM_TEMPLATE['NOTIFICATION']['POST_OWN'] = '
   </div>
 </div>
 ';
+
+// Template for recent forum posts menu.
+$NODEJS_FORUM_TEMPLATE['MENU']['RECENT']['HEADER'] = '
+<div class="container-fluid">
+';
+
+// Template for recent forum posts menu.
+$NODEJS_FORUM_TEMPLATE['MENU']['RECENT']['ITEM'] = '
+	<div class="row">
+		<div class="col-sm-2">
+			{AUTHOR_AVATAR}
+		</div>
+		<div class="col-sm-10">
+			{TOPIC_NAME}
+			<span class="glyphicon glyphicon-time" aria-hidden="true"></span> {POST_DATE} <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {AUTHOR_NAME}
+			{POST_PREVIEW}
+		</div>
+	</div>
+';
+
+// Template for recent forum posts menu.
+$NODEJS_FORUM_TEMPLATE['MENU']['RECENT']['FOOTER'] = '
+</div>
+';
