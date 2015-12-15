@@ -1,0 +1,39 @@
+.nodejs-forum-notification .picture {
+    float: left;
+    height: 50px;
+    margin: 0 10px 0 0;
+    width: 50px;
+}
+
+.nodejs-forum-notification .picture img {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    height: auto;
+    max-width: 100%;
+    width: auto;
+}
+
+.nodejs-forum-notification .body {
+    overflow: hidden;
+}
+
+.nodejs-forum-notification .body .message {
+    word-break: initial;
+}
+
+.nodejs-forum-notification .title {
+    font-weight: bold;
+}
+
+.nodejs-forum-notification .links ul {
+    margin: 10px 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.nodejs-forum-notification .links li {
+    float: left;
+    list-style: none;
+    margin: 0 10px 0 0;
+}

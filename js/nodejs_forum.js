@@ -20,12 +20,38 @@ var e107 = e107 || {'settings': {}, 'behaviors': {}};
 				}
 			};
 
+			var currenUser = parseInt(e107.settings.nodejs_forum.current_user);
+			var excluded = parseInt(message.exclude);
+
+			if(currenUser == excluded)
+			{
+				return;
+			}
+
 			switch(message.type)
 			{
 				case 'newForumPostAny':
+					if(parseInt(e107.settings.nodejs_forum.alert_new_post_any) === 1)
+					{
+						e107.Nodejs.callbacks.nodejsNotify.callback(msgData);
+					}
+
+					if(parseInt(e107.settings.nodejs_forum.sound_new_post_any) === 1)
+					{
+						e107.Nodejs.callbacks.nodejsNotifySoundAlert.callback();
+					}
 					break;
 
 				case 'newForumPostOwn':
+					if(parseInt(e107.settings.nodejs_forum.alert_new_post_own) === 1)
+					{
+						e107.Nodejs.callbacks.nodejsNotify.callback(msgData);
+					}
+
+					if(parseInt(e107.settings.nodejs_forum.sound_new_post_own) === 1)
+					{
+						e107.Nodejs.callbacks.nodejsNotifySoundAlert.callback();
+					}
 					break;
 			}
 
