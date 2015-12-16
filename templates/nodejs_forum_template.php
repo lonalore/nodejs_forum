@@ -47,20 +47,29 @@ $NODEJS_FORUM_TEMPLATE['NOTIFICATION']['POST_OWN'] = '
 
 // Template for recent forum posts menu.
 $NODEJS_FORUM_TEMPLATE['MENU']['RECENT']['HEADER'] = '
-<div class="container-fluid">
+<div class="nodejs-forum-latest-forum-posts">
 ';
 
 // Template for recent forum posts menu.
 $NODEJS_FORUM_TEMPLATE['MENU']['RECENT']['ITEM'] = '
-	<div class="row">
-		<div class="col-sm-2">
-			{AUTHOR_AVATAR}
+	<div class="post-item">
+		<div class="post-avatar pull-left hidden-xs">
+			<div class="thumbnail">
+				{RECENT_AUTHOR_AVATAR}
+			</div>
 		</div>
-		<div class="col-sm-10">
-			{TOPIC_NAME}
-			<span class="glyphicon glyphicon-time" aria-hidden="true"></span> {POST_DATE} <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {AUTHOR_NAME}
-			{POST_PREVIEW}
+		<div class="post-content">
+			<div class="topic-name">
+				{RECENT_TOPIC_NAME}
+			</div>
+			<div class="meta-info">
+				<small class="mark"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> {RECENT_POST_DATE} <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> {RECENT_AUTHOR_NAME}</small>
+			</div>
+			<div class="post-preview">
+				<p>{RECENT_POST_PREVIEW}</p>
+			</div>
 		</div>
+		<div class="clearfix"></div>
 	</div>
 ';
 

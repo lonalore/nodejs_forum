@@ -37,3 +37,19 @@
     list-style: none;
     margin: 0 10px 0 0;
 }
+
+.nodejs-forum-latest-forum-posts .post-avatar {
+    padding-right: 15px;
+}
+
+.nodejs-forum-latest-forum-posts .topic-name {
+    padding-bottom: 3px;
+    font-weight: bold;
+}
+
+.nodejs-forum-latest-forum-posts .meta-info {
+}
+
+.nodejs-forum-latest-forum-posts .post-preview {
+
+}
