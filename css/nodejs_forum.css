@@ -38,6 +38,11 @@
     margin: 0 10px 0 0;
 }
 
+.nodejs-forum-latest-forum-posts {
+    max-height: 310px;
+    overflow-x: auto;
+}
+
 .nodejs-forum-latest-forum-posts .post-avatar {
     padding-right: 15px;
 }

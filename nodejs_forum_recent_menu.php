@@ -54,17 +54,19 @@ class nodejs_forum_recent_menu
 		$items = $this->getLatestForumPosts();
 
 		$text = $tp->parseTemplate($tpl['MENU']['RECENT']['HEADER'], true, $sc);
+
 		foreach($items as $item)
 		{
 			$sc->setVars($item);
 			$text .= $tp->parseTemplate($tpl['MENU']['RECENT']['ITEM'], true, $sc);
 		}
-		$text .= $tp->parseTemplate($tpl['MENU']['RECENT']['FOOTER'], true, $sc);
 
 		if(empty($items))
 		{
-			$text = '<div class="text-center">' . LAN_PLUGIN_NODEJS_FORUM_FRONT_05 . '</div>';
+			$text .= '<div class="no-posts text-center">' . LAN_PLUGIN_NODEJS_FORUM_FRONT_05 . '</div>';
 		}
+
+		$text .= $tp->parseTemplate($tpl['MENU']['RECENT']['FOOTER'], true, $sc);
 
 		e107::getRender()->tablerender(LAN_PLUGIN_NODEJS_FORUM_FRONT_04, $text);
 		unset($text);
