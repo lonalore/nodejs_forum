@@ -27,7 +27,7 @@ function nodejs_forum_event_user_forum_post_created_callback($info)
 	$postUserID = intval(vartrue($info['data']['post_user'], 0));
 	$postThreadID = intval(vartrue($info['data']['post_thread'], 0));
 
-	if($postID === 0 || $postUserID === 0 || $postThreadID === 0)
+	if($postID === 0 || $postThreadID === 0)
 	{
 		return;
 	}
@@ -46,15 +46,36 @@ function nodejs_forum_event_user_forum_post_created_callback($info)
 	// Author of the forum topic.
 	$authorThread = e107::user($threadUser);
 
+	e107_require_once(e_PLUGIN . 'nodejs/nodejs.main.php');
+
+	$template = e107::getTemplate('nodejs_forum');
+	$sc = e107::getScBatch('nodejs_forum', true);
+	$tp = e107::getParser();
+
+
+	// Push rendered row item into Latest Forum Posts menu.
+	$sc_vars = array(
+		'author' => $authorPost,
+		'post'   => $info['data'],
+		'thread' => $thread,
+	);
+
+	$sc->setVars($sc_vars);
+	$markup = $tp->parseTemplate($template['MENU']['RECENT']['ITEM'], true, $sc);
+
+	$message = (object) array(
+		'broadcast' => true,
+		'channel'   => 'nodejs_notify',
+		'callback'  => 'nodejsForumMenu',
+		'type'      => 'latestForumPosts',
+		'markup'    => $markup,
+	);
+	nodejs_enqueue_message($message);
+
+
 	// Broadcast logged in users to inform about new forum post created.
 	if($authorPost)
 	{
-		e107_require_once(e_PLUGIN . 'nodejs/nodejs.main.php');
-
-		$template = e107::getTemplate('nodejs_forum');
-		$sc = e107::getScBatch('nodejs_forum', true);
-		$tp = e107::getParser();
-
 		$sc_vars = array(
 			'account' => $authorPost,
 			'post'    => $info['data'],
@@ -100,15 +121,10 @@ function nodejs_forum_event_user_forum_post_created_callback($info)
 		}
 	}
 
+
 	// Broadcast logged in (thread-author) user to inform about new forum post created in his/her topic.
 	if(isset($authorThread['user_id']))
 	{
-		e107_require_once(e_PLUGIN . 'nodejs/nodejs.main.php');
-
-		$template = e107::getTemplate('nodejs_forum');
-		$sc = e107::getScBatch('nodejs_forum', true);
-		$tp = e107::getParser();
-
 		$sc_vars = array(
 			'account' => $authorPost,
 			'post'    => $info['data'],

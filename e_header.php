@@ -26,21 +26,32 @@ class nodejs_forum_e_header
 
 	function __construct()
 	{
+		$this->includePublicComponents();
+
 		if(USERID > 0)
 		{
 			$db = e107::getDb();
 			$this->plugPrefs = e107::getPlugConfig('nodejs_forum')->getPref();
 			$this->defaultValues = $db->retrieve('user_extended', '*', 'user_extended_id = ' . USERID);
 
-			$this->include_components();
+			$this->includePrivateComponents();
 		}
 	}
 
 
 	/**
-	 * Include necessary CSS and JS files
+	 * Include necessary CSS and JS files.
 	 */
-	function include_components()
+	function includePublicComponents()
+	{
+		e107::js('nodejs_forum', 'js/nodejs_forum.menu.js', 'jquery', 5);
+	}
+
+
+	/**
+	 * Include necessary CSS and JS files.
+	 */
+	function includePrivateComponents()
 	{
 		e107::css('nodejs_forum', 'css/nodejs_forum.css');
 
