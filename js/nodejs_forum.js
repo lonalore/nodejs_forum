@@ -4,8 +4,7 @@ var e107 = e107 || {'settings': {}, 'behaviors': {}};
 {
 
 	/**
-	 * Register a NodeJS Callback to handle messages with type
-	 * "newForumPostAny" and "newForumPostOwn".
+	 * Register a NodeJS Callback to handle messages with type "newForumPostAny" and "newForumPostOwn".
 	 *
 	 * @type {{callback: Function}}
 	 */

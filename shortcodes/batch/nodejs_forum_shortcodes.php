@@ -20,9 +20,17 @@ e107::lan('nodejs_forum', false, true);
 class nodejs_forum_shortcodes extends e_shortcode
 {
 
+	/**
+	 * Store forum plugin preferences.
+	 *
+	 * @var array
+	 */
 	private $plugPrefs = array();
 
 
+	/**
+	 * Constructor.
+	 */
 	function __construct()
 	{
 		parent::__construct();
@@ -30,9 +38,16 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render avatar for post author used in notification message.
+	 *
+	 * @return string
+	 */
 	function sc_post_all_avatar()
 	{
 		$tp = e107::getParser();
+
+		// TODO: provide the ability to set dimensions on Admin UI.
 		$tp->thumbWidth = 50;
 		$tp->thumbHeight = 50;
 
@@ -40,6 +55,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render title for notification message.
+	 *
+	 * @return string
+	 */
 	function sc_post_all_title()
 	{
 		$href = e107::getUrl()->create('user/profile/view', $this->var['account']);
@@ -47,6 +67,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render body for notification message.
+	 *
+	 * @return mixed
+	 */
 	function sc_post_all_message()
 	{
 		$author = $this->var['account'];
@@ -59,6 +84,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render navigation link(s) for notification message.
+	 *
+	 * @return string
+	 */
 	function sc_post_all_links()
 	{
 		$post = $this->var['post'];
@@ -75,9 +105,16 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render avatar for post author used in notification message.
+	 *
+	 * @return string
+	 */
 	function sc_post_own_avatar()
 	{
 		$tp = e107::getParser();
+
+		// TODO: provide the ability to set dimensions on Admin UI.
 		$tp->thumbWidth = 50;
 		$tp->thumbHeight = 50;
 
@@ -85,6 +122,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render title for notification message.
+	 *
+	 * @return string
+	 */
 	function sc_post_own_title()
 	{
 		$href = e107::getUrl()->create('user/profile/view', $this->var['account']);
@@ -92,6 +134,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render body for notification message.
+	 *
+	 * @return mixed
+	 */
 	function sc_post_own_message()
 	{
 		$author = $this->var['account'];
@@ -104,6 +151,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render navigation link(s) for notification message.
+	 *
+	 * @return string
+	 */
 	function sc_post_own_links()
 	{
 		$post = $this->var['post'];
@@ -120,9 +172,16 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render avatar for post author used in the recent forum posts menu.
+	 *
+	 * @return string
+	 */
 	function sc_recent_author_avatar()
 	{
 		$tp = e107::getParser();
+
+		// TODO: provide the ability to set dimensions on Admin UI.
 		$tp->thumbWidth = 50;
 		$tp->thumbHeight = 50;
 
@@ -130,6 +189,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render name for post author used in the recent forum posts menu.
+	 *
+	 * @return string
+	 */
 	function sc_recent_author_name()
 	{
 		if(isset($this->var['post']['post_user_anon']) && $this->var['post']['post_user_anon'])
@@ -153,6 +217,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render title (as link) for topic used in the recent forum posts menu.
+	 *
+	 * @return string
+	 */
 	function sc_recent_topic_name()
 	{
 		$post = $this->var['post'];
@@ -169,6 +238,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render date for post used in the recent forum posts menu.
+	 *
+	 * @return string
+	 */
 	function sc_recent_post_date()
 	{
 		$format = vartrue($this->plugPrefs['asdasdsad'], 'relative');
@@ -177,6 +251,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	}
 
 
+	/**
+	 * Render (truncated) body for post used in the recent forum posts menu.
+	 *
+	 * @return string
+	 */
 	function sc_recent_post_preview()
 	{
 		$tp = e107::getParser();

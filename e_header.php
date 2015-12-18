@@ -18,22 +18,39 @@ if(!defined('e107_INIT'))
 class nodejs_forum_e_header
 {
 
+	/**
+	 * Store forum plugin preferences.
+	 *
+	 * @var array
+	 */
 	private $plugPrefs = array();
 
 
+	/**
+	 * Store default values of extended user fields are set by current user.
+	 *
+	 * @var array
+	 */
 	private $defaultValues = array();
 
 
+	/**
+	 * Constructor.
+	 */
 	function __construct()
 	{
+		// Include necessary CSS and JS files regardless of whether the current user is logged in, or not.
 		$this->includePublicComponents();
 
 		if(USERID > 0)
 		{
 			$db = e107::getDb();
+			// Plugin preferences.
 			$this->plugPrefs = e107::getPlugConfig('nodejs_forum')->getPref();
+			// Extended User Fields values by current, logged in user.
 			$this->defaultValues = $db->retrieve('user_extended', '*', 'user_extended_id = ' . USERID);
 
+			// Include necessary CSS and JS files only for logged in user.
 			$this->includePrivateComponents();
 		}
 	}
