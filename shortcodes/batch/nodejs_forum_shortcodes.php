@@ -62,6 +62,7 @@ class nodejs_forum_shortcodes extends e_shortcode
 	 */
 	function sc_post_all_title()
 	{
+		// TODO: use e107::url().
 		$href = e107::getUrl()->create('user/profile/view', $this->var['account']);
 		return '<a href="' . $href . '">' . $this->var['account']['user_name'] . '</a>';
 	}
@@ -129,6 +130,7 @@ class nodejs_forum_shortcodes extends e_shortcode
 	 */
 	function sc_post_own_title()
 	{
+		// TODO: use e107::url().
 		$href = e107::getUrl()->create('user/profile/view', $this->var['account']);
 		return '<a href="' . $href . '">' . $this->var['account']['user_name'] . '</a>';
 	}
@@ -204,6 +206,7 @@ class nodejs_forum_shortcodes extends e_shortcode
 		{
 			if(isset($this->var['author']['user_name']))
 			{
+				// TODO: use e107::url().
 				$href = e107::getUrl()->create('user/profile/view', $this->var['author']);
 				$poster = "<a href='" . $href . "'>" . $this->var['author']['user_name'] . "</a>";
 			}
