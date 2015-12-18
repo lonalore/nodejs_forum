@@ -32,6 +32,9 @@ function nodejs_forum_event_user_forum_post_created_callback($info)
 		return;
 	}
 
+	// Get forum plugin preferences.
+	$plugForumPrefs = e107::getPlugConfig('forum')->getPref();
+
 	$db = e107::getDb();
 
 	// Load thread.
@@ -52,12 +55,16 @@ function nodejs_forum_event_user_forum_post_created_callback($info)
 	$sc = e107::getScBatch('nodejs_forum', true);
 	$tp = e107::getParser();
 
+	// Get topic page number.
+	$postNum = $db->count('forum_post', '(*)', "WHERE post_id <= " . $postID . " AND post_thread = " . $postThreadID . " ORDER BY post_id ASC");
+	$postPage = ceil($postNum / vartrue($plugForumPrefs['postspage'], 10));
 
 	// Push rendered row item into Latest Forum Posts menu.
 	$sc_vars = array(
-		'author' => $authorPost,
-		'post'   => $info['data'],
-		'thread' => $thread,
+		'author'    => $authorPost,
+		'post'      => $info['data'],
+		'thread'    => $thread,
+		'topicPage' => $postPage,
 	);
 
 	$sc->setVars($sc_vars);
@@ -76,12 +83,6 @@ function nodejs_forum_event_user_forum_post_created_callback($info)
 	// Broadcast logged in users to inform about new forum post created.
 	if($authorPost)
 	{
-		$sc_vars = array(
-			'account' => $authorPost,
-			'post'    => $info['data'],
-			'thread'  => $thread,
-		);
-
 		$sc->setVars($sc_vars);
 		$markup = $tp->parseTemplate($template['NOTIFICATION']['POST_ALL'], true, $sc);
 
@@ -125,12 +126,6 @@ function nodejs_forum_event_user_forum_post_created_callback($info)
 	// Broadcast logged in (thread-author) user to inform about new forum post created in his/her topic.
 	if(isset($authorThread['user_id']))
 	{
-		$sc_vars = array(
-			'account' => $authorPost,
-			'post'    => $info['data'],
-			'thread'  => $thread,
-		);
-
 		$sc->setVars($sc_vars);
 		$markup = $tp->parseTemplate($template['NOTIFICATION']['POST_OWN'], true, $sc);
 

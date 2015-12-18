@@ -65,6 +65,9 @@ class nodejs_forum_shortcodes extends e_shortcode
 		$thread = $this->var['thread'];
 
 		$toPost = e107::url('forum', 'topic', $thread, array(
+			'query'    => array(
+				'p' => $this->var['topicPage'],
+			),
 			'fragment' => 'post-' . $post['post_id'],
 		));
 
@@ -107,6 +110,9 @@ class nodejs_forum_shortcodes extends e_shortcode
 		$thread = $this->var['thread'];
 
 		$toPost = e107::url('forum', 'topic', $thread, array(
+			'query'    => array(
+				'p' => $this->var['topicPage'],
+			),
 			'fragment' => 'post-' . $post['post_id'],
 		));
 
@@ -153,6 +159,9 @@ class nodejs_forum_shortcodes extends e_shortcode
 		$thread = $this->var['thread'];
 
 		$toPost = e107::url('forum', 'topic', $thread, array(
+			'query'    => array(
+				'p' => $this->var['topicPage'],
+			),
 			'fragment' => 'post-' . $post['post_id'],
 		));
 

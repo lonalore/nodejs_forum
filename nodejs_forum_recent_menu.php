@@ -29,6 +29,14 @@ class nodejs_forum_recent_menu
 
 
 	/**
+	 * Store forum plugin preferences.
+	 *
+	 * @var array
+	 */
+	private $plugForumPrefs = array();
+
+
+	/**
 	 * Constructor.
 	 */
 	function __construct()
@@ -37,6 +45,8 @@ class nodejs_forum_recent_menu
 		{
 			// Get plugin preferences.
 			$this->plugPrefs = e107::getPlugConfig('nodejs_forum')->getPref();
+			// Get forum plugin preferences.
+			$this->plugForumPrefs = e107::getPlugConfig('forum')->getPref();
 			$this->renderMenu();
 		}
 	}
@@ -57,6 +67,11 @@ class nodejs_forum_recent_menu
 
 		foreach($items as $item)
 		{
+			// Get topic page number.
+			$postNum = $this->getPostNum($item['thread']['thread_id'], $item['post']['post_id']);
+			$postPage = ceil($postNum / vartrue($this->plugForumPrefs['postspage'], 10));
+			$item['topicPage'] = $postPage;
+
 			$sc->setVars($item);
 			$text .= $tp->parseTemplate($tpl['MENU']['RECENT']['ITEM'], true, $sc);
 		}
@@ -112,6 +127,17 @@ class nodejs_forum_recent_menu
 		}
 
 		return $posts;
+	}
+
+
+	/**
+	 * Given threadId and postId, determine which number of post in thread the postid is.
+	 */
+	function getPostNum($threadId, $postId)
+	{
+		$threadId = (int) $threadId;
+		$postId = (int) $postId;
+		return e107::getDb()->count('forum_post', '(*)', "WHERE post_id <= {$postId} AND post_thread = {$threadId} ORDER BY post_id ASC");
 	}
 
 }
