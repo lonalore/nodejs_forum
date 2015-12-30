@@ -14,6 +14,7 @@ e107::lan('nodejs_forum', false, true);
 // Register events.
 $event = e107::getEvent();
 $event->register('user_forum_post_created', 'nodejs_forum_event_user_forum_post_created_callback');
+$event->register('login', 'nodejs_forum_event_login_callback');
 
 /**
  * Event callback after triggering "user_forum_post_created".
@@ -137,5 +138,41 @@ function nodejs_forum_event_user_forum_post_created_callback($info)
 			'exclude'  => $postUserID,
 		);
 		nodejs_enqueue_message($message);
+	}
+}
+
+/**
+ * Callback function to check EUF defaults.
+ */
+function nodejs_forum_event_login_callback($data)
+{
+	$db = e107::getDb();
+	$uid = (int) $data['user_id'];
+
+	// Start session.
+	$session_started = session_id() === '' ? false : true;
+	if($session_started)
+	{
+		session_start();
+	}
+
+	if($uid > 0 && !isset($_SESSION['nodejs_forum_eufs_updated']))
+	{
+		$_SESSION['nodejs_forum_eufs_updated'] = 1;
+
+		$visits = $db->retrieve('user', 'user_visits', 'user_id = ' . $uid);
+		// First time visit.
+		if((int) $visits === 0)
+		{
+			$eufs = array(
+				'user_plugin_nodejs_forum_alert_new_post_any' => 1,
+				'user_plugin_nodejs_forum_sound_new_post_any' => 1,
+				'user_plugin_nodejs_forum_alert_new_post_own' => 1,
+				'user_plugin_nodejs_forum_sound_new_post_own' => 1,
+				'WHERE'                                       => 'user_extended_id = ' . $uid,
+			);
+
+			$db->update('user_extended', $eufs);
+		}
 	}
 }
