@@ -61,6 +61,7 @@ class nodejs_forum_e_header
 	 */
 	function includePublicComponents()
 	{
+		e107::css('nodejs_forum', 'css/nodejs_forum.css');
 		e107::js('nodejs_forum', 'js/nodejs_forum.menu.js', 'jquery', 5);
 	}
 
@@ -70,8 +71,6 @@ class nodejs_forum_e_header
 	 */
 	function includePrivateComponents()
 	{
-		e107::css('nodejs_forum', 'css/nodejs_forum.css');
-
 		$eufPrefix = 'user_plugin_nodejs_forum_';
 		$defs = $this->defaultValues;
 
