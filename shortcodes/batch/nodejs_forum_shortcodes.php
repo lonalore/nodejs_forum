@@ -62,9 +62,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	 */
 	function sc_post_all_title()
 	{
+		// $username = vartrue($this->var['account']['user_login'], $this->var['account']['user_name']);
+		$username = $this->var['account']['user_name'];
 		// TODO: use e107::url().
 		$href = e107::getUrl()->create('user/profile/view', $this->var['account']);
-		return '<a href="' . $href . '">' . $this->var['account']['user_name'] . '</a>';
+		return '<a href="' . $href . '">' . $username . '</a>';
 	}
 
 
@@ -78,8 +80,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 		$author = $this->var['account'];
 		$thread = $this->var['thread'];
 
+		// $username = vartrue($author['user_login'], $author['user_name']);
+		$username = $author['user_name'];
+
 		$search = array('[x]', '[y]');
-		$replace = array($author['user_name'], $thread['thread_name']);
+		$replace = array($username, $thread['thread_name']);
 
 		return str_replace($search, $replace, LAN_PLUGIN_NODEJS_FORUM_FRONT_02);
 	}
@@ -130,9 +135,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 	 */
 	function sc_post_own_title()
 	{
+		// $username = vartrue($this->var['account']['user_login'], $this->var['account']['user_name']);
+		$username = $this->var['account']['user_name'];
 		// TODO: use e107::url().
 		$href = e107::getUrl()->create('user/profile/view', $this->var['account']);
-		return '<a href="' . $href . '">' . $this->var['account']['user_name'] . '</a>';
+		return '<a href="' . $href . '">' . $username . '</a>';
 	}
 
 
@@ -146,8 +153,11 @@ class nodejs_forum_shortcodes extends e_shortcode
 		$author = $this->var['account'];
 		$thread = $this->var['thread'];
 
+		// $username = vartrue($author['user_login'], $author['user_name']);
+		$username = $author['user_name'];
+
 		$search = array('[x]', '[y]');
-		$replace = array($author['user_name'], $thread['thread_name']);
+		$replace = array($username, $thread['thread_name']);
 
 		return str_replace($search, $replace, LAN_PLUGIN_NODEJS_FORUM_FRONT_03);
 	}
@@ -204,7 +214,14 @@ class nodejs_forum_shortcodes extends e_shortcode
 		}
 		else
 		{
-			if(isset($this->var['author']['user_name']))
+			if(isset($this->var['author']['user_login']))
+			{
+				// TODO: use e107::url().
+				$href = e107::getUrl()->create('user/profile/view', $this->var['author']);
+				// $poster = "<a href='" . $href . "'>" . $this->var['author']['user_login'] . "</a>";
+				$poster = "<a href='" . $href . "'>" . $this->var['author']['user_name'] . "</a>";
+			}
+			elseif(isset($this->var['author']['user_name']))
 			{
 				// TODO: use e107::url().
 				$href = e107::getUrl()->create('user/profile/view', $this->var['author']);
@@ -248,6 +265,7 @@ class nodejs_forum_shortcodes extends e_shortcode
 	 */
 	function sc_recent_post_date()
 	{
+		// TODO: date format.
 		$format = vartrue($this->plugPrefs['asdasdsad'], 'relative');
 		$date = e107::getDate();
 		return $date->convert_date(vartrue($this->var['post']['post_datestamp'], 0), $format);
