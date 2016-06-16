@@ -62,7 +62,7 @@ class nodejs_forum_e_header
 	function includePublicComponents()
 	{
 		e107::css('nodejs_forum', 'css/nodejs_forum.css');
-		e107::js('nodejs_forum', 'js/nodejs_forum.menu.js', 'jquery', 5);
+		e107::js('footer', '{e_PLUGIN}nodejs_forum/js/nodejs_forum.menu.js', 'jquery', 5);
 	}
 
 
@@ -103,7 +103,7 @@ class nodejs_forum_e_header
 		);
 
 		e107::js('settings', array('nodejs_forum' => $js_options));
-		e107::js('nodejs_forum', 'js/nodejs_forum.js', 'jquery', 5);
+		e107::js('footer', '{e_PLUGIN}nodejs_forum/js/nodejs_forum.js', 'jquery', 5);
 	}
 }
 
